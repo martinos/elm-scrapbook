@@ -2,16 +2,13 @@ module Main (..) where
 
 import Graphics.Element exposing (..)
 import Graphics.Collage exposing (..)
-import Graphics.Input.Field exposing (..)
 import Signal
 import Color
 import Text
 import String
-import StartApp
 import Html exposing (Attribute)
 import Html.Attributes exposing (value)
 import Html.Events exposing (on, onClick, targetValue)
-import Debug
 
 
 type Tree a
