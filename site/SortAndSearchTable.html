@@ -11549,7 +11549,11 @@ Elm.TestElm.make = function (_elm) {
                       A3($Sort.sort,model.countOrder,function (_) {    return _.count;},A2(seachFilter,model.search,model.entries))))]))]));
    });
    var Entry = F2(function (a,b) {    return {text: a,count: b};});
-   var initialModel = {entries: _U.list([{text: "laundry",count: 1},{text: "dishes",count: 2}])
+   var initialModel = {entries: _U.list([{text: "banana",count: 1}
+                                        ,{text: "tomato",count: 2}
+                                        ,{text: "orange",count: 2}
+                                        ,{text: "Pepper",count: 6}
+                                        ,{text: "Pear",count: 19}])
                       ,itemInput: ""
                       ,countInput: ""
                       ,search: ""
