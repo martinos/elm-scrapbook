@@ -23,7 +23,13 @@ type alias Model =
 
 
 initialModel =
-  { entries = [ { text = "laundry", count = 1 }, { text = "dishes", count = 2 } ]
+  { entries =
+      [ { text = "banana", count = 1 }
+      , { text = "tomato", count = 2 }
+      , { text = "orange", count = 2 }
+      , { text = "Pepper", count = 6 }
+      , { text = "Pear", count = 19 }
+      ]
   , itemInput = ""
   , countInput = ""
   , search = ""
@@ -143,11 +149,14 @@ itemElem entry =
 
 itemListElem address countOrder textOrder entries =
   let
-    totalCount = List.foldl (.count >> (+)) 0 entries
+    totalCount =
+      List.foldl (.count >> (+)) 0 entries
 
-    countItem = tfoot [] [itemElem { text = "Total", count = totalCount }]
+    countItem =
+      tfoot [] [ itemElem { text = "Total", count = totalCount } ]
 
-    header = itemListHeader address countOrder textOrder
+    header =
+      itemListHeader address countOrder textOrder
   in
     table
       []
