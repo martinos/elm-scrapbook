@@ -13,7 +13,7 @@ To generate the html files to be served:
 
 - [AngularCodeSchool.html](http://rawgit.com/martinos/elm-scrapbook/master/site/AngularCodeSchool.html)
 - [ColorRect.html](http://rawgit.com/martinos/elm-scrapbook/master/site/ColorRect.html)
-- [Gith.html](http://rawgit.com/martinos/elm-scrapbook/master/site/Gith.html)
+- [Gith.html](http://rawgit.com/martinos/elm-scrapbook/master/site/gith.html)
 - [HexagonRotation.html](http://rawgit.com/martinos/elm-scrapbook/master/site/HexagonRotation.html)
 - [NewStories.html](http://rawgit.com/martinos/elm-scrapbook/master/site/NewStories.html)
 - [NewTest.html](http://rawgit.com/martinos/elm-scrapbook/master/site/NewTest.html)
