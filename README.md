@@ -23,8 +23,6 @@ To generate the html files to be served:
 - [TestMarkdown.html](http://rawgit.com/martinos/elm-scrapbook/master/site/TestMarkdown.html)
 - [TextReverser.html](http://rawgit.com/martinos/elm-scrapbook/master/site/TextReverser.html)
 - [Tree.html](http://rawgit.com/martinos/elm-scrapbook/master/site/Tree.html)
-- [ViewHelper.html](http://rawgit.com/martinos/elm-scrapbook/master/site/ViewHelper.html)
 - [randomGif.html](http://rawgit.com/martinos/elm-scrapbook/master/site/randomGif.html)
 - [slack.html](http://rawgit.com/martinos/elm-scrapbook/master/site/slack.html)
-- [sort.html](http://rawgit.com/martinos/elm-scrapbook/master/site/sort.html)
 - [stories.html](http://rawgit.com/martinos/elm-scrapbook/master/site/stories.html)
