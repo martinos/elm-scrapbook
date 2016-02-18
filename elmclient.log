@@ -1,0 +1,8 @@
+2015-11-20 10:20:50.477 - connected to /Users/mchabot/dev/perso/test_elm
+2015-11-20 10:31:02.818 - handleClose called
+2015-11-20 10:31:02.818 - try to kill any children of reactor
+2015-11-20 10:31:02.830 - kill the reactor process
+2015-11-20 10:31:02.830 - Set timeout and then kill main process
+2015-11-20 10:31:02.832 - Got SIGTERM
+2015-11-20 10:31:02.865 - Callback from completed kill of reactor subprocesses
+2015-11-20 10:31:02.931 - After timeout, kill main process and socket
