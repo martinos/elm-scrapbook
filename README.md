@@ -19,7 +19,6 @@ To generate the html files to be served:
 - [PostalCode.html](http://rawgit.com/martinos/elm-scrapbook/master/site/PostalCode.html)
 - [Sampler.html](http://rawgit.com/martinos/elm-scrapbook/master/site/Sampler.html)
 - [SortAndSearchTable.html](http://rawgit.com/martinos/elm-scrapbook/master/site/SortAndSearchTable.html)
-- [TestJson.html](http://rawgit.com/martinos/elm-scrapbook/master/site/TestJson.html)
 - [TestMarkdown.html](http://rawgit.com/martinos/elm-scrapbook/master/site/TestMarkdown.html)
 - [TextReverser.html](http://rawgit.com/martinos/elm-scrapbook/master/site/TextReverser.html)
 - [Tree.html](http://rawgit.com/martinos/elm-scrapbook/master/site/Tree.html)
