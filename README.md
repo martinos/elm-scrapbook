@@ -13,7 +13,7 @@ To generate the html files to be served:
 
 - [Reviews](http://rawgit.com/martinos/elm-scrapbook/master/site/Reviews.html)
 - [ColorRect](http://rawgit.com/martinos/elm-scrapbook/master/site/ColorRect.html)
-- [GithubMart](http://rawgit.com/martinos/elm-scrapbook/master/site/GitHubMart.html)
+- [GithubMart](http://rawgit.com/martinos/elm-scrapbook/master/site/githubmart.html)
 - [HexagonRotation](http://rawgit.com/martinos/elm-scrapbook/master/site/HexagonRotation.html)
 - [PostalCode](http://rawgit.com/martinos/elm-scrapbook/master/site/PostalCode.html)
 - [Sampler](http://rawgit.com/martinos/elm-scrapbook/master/site/Sampler.html)
