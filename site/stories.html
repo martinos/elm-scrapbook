@@ -11330,66 +11330,83 @@ Elm.Main.make = function (_elm) {
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
    $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var _op = {};
-   var fetchChapter = F2(function (chapters,id) {    return $List.head(A2($List.filter,function (chapt) {    return _U.eq(chapt.id,id);},chapters));});
-   var update = F2(function (action,story) {
+   var update = F2(function (action,game) {
       var _p0 = action;
       if (_p0.ctor === "NoOp") {
-            return story;
+            return game;
          } else {
-            var _p2 = _p0._0;
-            var _p1 = A2(fetchChapter,story.chapters,_p2);
-            if (_p1.ctor === "Just") {
-                  return _U.update(story,{currentChapter: _p1._0,error: ""});
+            var filtered = A2($List.filter,function (n) {    return _U.eq(n.id,_p0._0);},game.story);
+            var selected = $List.head(filtered);
+            var _p1 = selected;
+            if (_p1.ctor === "Nothing") {
+                  return game;
                } else {
-                  return _U.update(story,{error: A2($Basics._op["++"],"Invalid Link",$Basics.toString(_p2))});
+                  return _U.update(game,{past: A2($List._op["::"],game.now,game.past),now: _p1._0});
                }
          }
    });
    var Goto = function (a) {    return {ctor: "Goto",_0: a};};
    var NoOp = {ctor: "NoOp"};
    var app = $Signal.mailbox(NoOp);
-   var endChapter = {text: "This is the End",choices: _U.list([]),id: 4};
-   var thirdChapter = {text: "This is Chapter 3",choices: _U.list([{id: 2,text: "Go Back to Chapter 2"},{id: 4,text: "Almost There"}]),id: 3};
-   var secondChapter = {text: "Tthis is the second chapter",choices: _U.list([{id: 1,text: "Go Back To Start"}]),id: 2};
-   var firstChapter = {text: "This is the first chapter",choices: _U.list([{id: 2,text: "Go There"},{id: 3,text: "Go There if you want a surprise"}]),id: 1};
-   var currentStory = {chapters: _U.list([firstChapter,secondChapter,thirdChapter,endChapter]),currentChapter: firstChapter,error: ""};
-   var choiceElem = F2(function (address,choice) {
-      return A2($Html.li,_U.list([]),_U.list([A2($Html.a,_U.list([A2($Html$Events.onClick,address,Goto(choice.id))]),_U.list([$Html.text(choice.text)]))]));
-   });
-   var choicesList = F2(function (address,choices) {    return A2($Html.ul,_U.list([]),A2($List.map,choiceElem(address),choices));});
-   var chapterElem = F2(function (address,chapter) {
-      return A2($Html.div,_U.list([]),_U.list([A2($Html.p,_U.list([]),_U.list([$Html.text(chapter.text),A2(choicesList,address,chapter.choices)]))]));
-   });
-   var view = F2(function (address,story) {
-      return A2($Html.div,_U.list([]),_U.list([A2($Html.strong,_U.list([]),_U.list([$Html.text(story.error)])),A2(chapterElem,address,story.currentChapter)]));
-   });
-   var main = A2($Signal.map,view(app.address),A3($Signal.foldp,update,currentStory,app.signal));
-   var Chapter = F3(function (a,b,c) {    return {text: a,choices: b,id: c};});
+   var chapter4 = {id: 4,title: "Chapter 4",body: "and they lived happily. The End",choices: _U.list([])};
+   var chapter3 = {id: 3
+                  ,title: "Chapter 3"
+                  ,body: "The prince ..."
+                  ,choices: _U.list([{id: 1,text: "Chapter 1"},{id: 2,text: "Chapter 2"},{id: 4,text: "Chapter 4"}])};
+   var chapter2 = {id: 2,title: "Chapter 2",body: "The prince ...",choices: _U.list([{id: 2,text: "Choice 2"},{id: 3,text: "Choice 3"}])};
+   var chapter1 = {id: 1,title: "Chapter 1",body: "Once upon a time",choices: _U.list([{id: 1,text: "Choice 1"},{id: 2,text: "Choice 2"}])};
+   var initGame = {story: _U.list([chapter1,chapter2,chapter3,chapter4]),past: _U.list([]),now: chapter1};
    var Choice = F2(function (a,b) {    return {id: a,text: b};});
-   var Story = F3(function (a,b,c) {    return {chapters: a,currentChapter: b,error: c};});
+   var Game = F3(function (a,b,c) {    return {story: a,past: b,now: c};});
+   var Chapter = F4(function (a,b,c,d) {    return {id: a,title: b,body: c,choices: d};});
+   var choiceElem = F2(function (address,choice) {
+      return A2($Html.li,
+      _U.list([]),
+      _U.list([A2($Html.a,_U.list([$Html$Attributes.href("#"),A2($Html$Events.onClick,address,Goto(choice.id))]),_U.list([$Html.text(choice.text)]))]));
+   });
+   var choicesElem = F2(function (address,choices) {    return A2($Html.ul,_U.list([]),A2($List.map,choiceElem(address),choices));});
+   var chaptElem = F4(function (address,title,body,choices) {
+      return A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Html.h1,_U.list([]),_U.list([$Html.text(title)])),A2($Html.p,_U.list([]),_U.list([$Html.text(body)])),A2(choicesElem,address,choices)]));
+   });
+   var chapterWithChoice = F2(function (address,chapter) {    return A4(chaptElem,address,chapter.title,chapter.body,chapter.choices);});
+   var chaptersElem = F2(function (address,chapters) {
+      return A2($List.map,function (s) {    return A4(chaptElem,address,s.title,s.body,_U.list([]));},chapters);
+   });
+   var pastChapters = F2(function (address,game) {    return A2(chaptersElem,address,game.past);});
+   var currentChapter = F2(function (address,game) {    return A2(chapterWithChoice,address,game.now);});
+   var view = F2(function (address,game) {
+      return A2($Html.div,_U.list([]),$List.reverse(A2($List._op["::"],A2(currentChapter,address,game),A2(pastChapters,address,game))));
+   });
+   var main = A2($Signal.map,view(app.address),A3($Signal.foldp,update,initGame,app.signal));
    return _elm.Main.values = {_op: _op
-                             ,Story: Story
-                             ,Choice: Choice
-                             ,Chapter: Chapter
                              ,view: view
-                             ,chapterElem: chapterElem
-                             ,choicesList: choicesList
+                             ,currentChapter: currentChapter
+                             ,pastChapters: pastChapters
+                             ,chaptersElem: chaptersElem
+                             ,chapterWithChoice: chapterWithChoice
+                             ,chaptElem: chaptElem
+                             ,choicesElem: choicesElem
                              ,choiceElem: choiceElem
-                             ,firstChapter: firstChapter
-                             ,secondChapter: secondChapter
-                             ,thirdChapter: thirdChapter
-                             ,endChapter: endChapter
-                             ,currentStory: currentStory
+                             ,Chapter: Chapter
+                             ,Game: Game
+                             ,Choice: Choice
+                             ,chapter1: chapter1
+                             ,chapter2: chapter2
+                             ,chapter3: chapter3
+                             ,chapter4: chapter4
+                             ,initGame: initGame
                              ,NoOp: NoOp
                              ,Goto: Goto
-                             ,app: app
                              ,update: update
-                             ,fetchChapter: fetchChapter
+                             ,app: app
                              ,main: main};
 };</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script></body></html>

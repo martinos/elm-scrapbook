@@ -1,95 +1,144 @@
 module Main (..) where
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Attributes exposing (..)
+
+
+view : Signal.Address Action -> Game -> Html
+view address game =
+  div
+    []
+    (currentChapter address game :: pastChapters address game |> List.reverse)
+
+
+currentChapter address game =
+  chapterWithChoice address game.now
+
+
+pastChapters address game =
+  chaptersElem address game.past
+
+
+chaptersElem : Signal.Address Action -> List Chapter -> List Html
+chaptersElem address chapters =
+  List.map (\s -> chaptElem address s.title s.body []) chapters
+
+
+chapterWithChoice : Signal.Address Action -> Chapter -> Html
+chapterWithChoice address chapter =
+  chaptElem address chapter.title chapter.body chapter.choices
+
+
+chaptElem : Signal.Address Action -> String -> String -> List Choice -> Html
+chaptElem address title body choices =
+  div
+    []
+    [ h1
+        []
+        [ text title ]
+    , p
+        []
+        [ text body ]
+    , choicesElem address choices
+    ]
+
+
+choicesElem : Signal.Address Action -> List Choice -> Html
+choicesElem address choices =
+  ul
+    []
+    (List.map (choiceElem address) choices)
+
+
+choiceElem : Signal.Address Action -> Choice -> Html
+choiceElem address choice =
+  li
+    []
+    [ a
+        [ href "#"
+        , onClick address (Goto choice.id)
+        ]
+        [ text choice.text ]
+    ]
+
 
 
 -- Model
 
 
 type alias Story =
-  { chapters : List Chapter, currentChapter : Chapter, error : String }
+  List Chapter
+
+
+type alias Chapter =
+  { id : Int, title : String, body : String, choices : List Choice }
+
+
+type alias Game =
+  { story : Story, past : List Chapter, now : Chapter }
 
 
 type alias Choice =
   { id : Int, text : String }
 
 
-type alias Chapter =
-  { text : String, choices : List Choice, id : Int }
-
-
-
--- View
-
-
-view : Signal.Address Action -> Story -> Html
-view address story =
-  div
-    []
-    [ strong [] [ text story.error ]
-    , chapterElem address story.currentChapter
-    ]
-
-
-chapterElem address chapter =
-  div
-    []
-    [ p
-        []
-        [ text chapter.text
-        , choicesList address chapter.choices
-        ]
-    ]
-
-
-choicesList address choices =
-  ul
-    []
-    (List.map (choiceElem address) choices)
-
-
-choiceElem address choice =
-  li
-    []
-    [ a [ onClick address (Goto choice.id) ] [ text choice.text ] ]
-
-
-
--- Model
-
-
-firstChapter =
-  { text = "This is the first chapter"
+chapter1 : Chapter
+chapter1 =
+  { id = 1
+  , title = "Chapter 1"
+  , body = "Once upon a time"
   , choices =
-      [ { id = 2, text = "Go There" }
-      , { id = 3, text = "Go There if you want a surprise" }
+      [ { id = 1, text = "Choice 1" }
+      , { id = 2, text = "Choice 2" }
       ]
-  , id = 1
   }
 
 
-secondChapter =
-  { text = "Tthis is the second chapter", choices = [ { id = 1, text = "Go Back To Start" } ], id = 2 }
-
-
-thirdChapter =
-  { text = "This is Chapter 3"
+chapter2 : Chapter
+chapter2 =
+  { id = 2
+  , title = "Chapter 2"
+  , body = "The prince ..."
   , choices =
-      [ { id = 2, text = "Go Back to Chapter 2" }
-      , { id = 4, text = "Almost There" }
+      [ { id = 2, text = "Choice 2" }
+      , { id = 3, text = "Choice 3" }
       ]
-  , id = 3
   }
 
 
-endChapter =
-  { text = "This is the End", choices = [], id = 4 }
+chapter3 : Chapter
+chapter3 =
+  { id = 3
+  , title = "Chapter 3"
+  , body = "The prince ..."
+  , choices =
+      [ { id = 1, text = "Chapter 1" }
+      , { id = 2, text = "Chapter 2" }
+      , { id = 4, text = "Chapter 4" }
+      ]
+  }
 
 
-currentStory =
-  { chapters = [ firstChapter, secondChapter, thirdChapter, endChapter ], currentChapter = firstChapter, error = "" }
+chapter4 : Chapter
+chapter4 =
+  { id = 4
+  , title = "Chapter 4"
+  , body = "and they lived happily. The End"
+  , choices = []
+  }
+
+
+initGame : Game
+initGame =
+  { story = [ chapter1, chapter2, chapter3, chapter4 ]
+  , past = []
+  , now = chapter1
+  }
+
+
+
+-- update
 
 
 type Action
@@ -97,28 +146,52 @@ type Action
   | Goto Int
 
 
+update : Action -> Game -> Game
+update action game =
+  case action of
+    NoOp ->
+      game
+
+    Goto id ->
+      let
+        filtered =
+          List.filter (\n -> n.id == id) game.story
+
+        selected =
+          List.head filtered
+      in
+        case selected of
+          Nothing ->
+            game
+
+          Just chapter ->
+            { game
+              | past = game.now :: game.past
+              , now = chapter
+            }
+
+
+app : Signal.Mailbox Action
 app =
   Signal.mailbox NoOp
 
 
-update action story =
-  case action of
-    NoOp ->
-      story
 
-    Goto id ->
-      case (fetchChapter story.chapters id) of
-        Just a ->
-          { story | currentChapter = a, error = "" }
-
-        Nothing ->
-          { story | error = "Invalid Link" ++ toString id }
+-- Model
 
 
-fetchChapter chapters id =
-  List.filter (\chapt -> chapt.id == id) chapters |> List.head
+main : Signal Html
+
+
+
+-- main = view initGame
 
 
 main =
-  Signal.foldp update currentStory app.signal |> Signal.map (view app.address)
+  Signal.foldp update initGame app.signal |> Signal.map (view app.address)
+
+
+
+-- Display a list
+-- Click on a choice should display the new Chapter
 
