@@ -16,7 +16,6 @@ To generate the html files to be served:
 - [Gith.html](http://rawgit.com/martinos/elm-scrapbook/master/site/gith.html)
 - [HexagonRotation.html](http://rawgit.com/martinos/elm-scrapbook/master/site/HexagonRotation.html)
 - [NewStories.html](http://rawgit.com/martinos/elm-scrapbook/master/site/NewStories.html)
-- [NewTest.html](http://rawgit.com/martinos/elm-scrapbook/master/site/NewTest.html)
 - [PostalCode.html](http://rawgit.com/martinos/elm-scrapbook/master/site/PostalCode.html)
 - [Sampler.html](http://rawgit.com/martinos/elm-scrapbook/master/site/Sampler.html)
 - [SortAndSearchTable.html](http://rawgit.com/martinos/elm-scrapbook/master/site/SortAndSearchTable.html)
