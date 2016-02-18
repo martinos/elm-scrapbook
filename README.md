@@ -20,6 +20,6 @@ To generate the html files to be served:
 - [SortAndSearchTable](http://rawgit.com/martinos/elm-scrapbook/master/site/SortAndSearchTable.html)
 - [TestMarkdown](http://rawgit.com/martinos/elm-scrapbook/master/site/TestMarkdown.html)
 - [TextReverser](http://rawgit.com/martinos/elm-scrapbook/master/site/TextReverser.html)
-- [Tree](http://rawgit.com/martinos/elm-scrapbook/master/site/Tree.html)
+- [BinaryTree](http://rawgit.com/martinos/elm-scrapbook/master/site/BinaryTree.html)
 - [RandomGif](http://rawgit.com/martinos/elm-scrapbook/master/site/randomGif.html)
 - [Stories](http://rawgit.com/martinos/elm-scrapbook/master/site/stories.html)
