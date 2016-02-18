@@ -23,5 +23,4 @@ To generate the html files to be served:
 - [TextReverser.html](http://rawgit.com/martinos/elm-scrapbook/master/site/TextReverser.html)
 - [Tree.html](http://rawgit.com/martinos/elm-scrapbook/master/site/Tree.html)
 - [randomGif.html](http://rawgit.com/martinos/elm-scrapbook/master/site/randomGif.html)
-- [slack.html](http://rawgit.com/martinos/elm-scrapbook/master/site/slack.html)
 - [stories.html](http://rawgit.com/martinos/elm-scrapbook/master/site/stories.html)
