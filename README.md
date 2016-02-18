@@ -11,7 +11,7 @@ To generate the html files to be served:
 
 ## Examples
 
-- [AngularCodeSchool](http://rawgit.com/martinos/elm-scrapbook/master/site/AngularCodeSchool.html)
+- [Reviews](http://rawgit.com/martinos/elm-scrapbook/master/site/Reviews.html)
 - [ColorRect](http://rawgit.com/martinos/elm-scrapbook/master/site/ColorRect.html)
 - [Gith](http://rawgit.com/martinos/elm-scrapbook/master/site/gith.html)
 - [HexagonRotation](http://rawgit.com/martinos/elm-scrapbook/master/site/HexagonRotation.html)

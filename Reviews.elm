@@ -75,7 +75,7 @@ view address model =
   div
     [ class "small-9 columns" ]
     [ ViewHelper.foundation
-    , h3 [] [ text "Preview" ]
+    , h3 [] [ text "Reviews" ]
     , displayReviews model
     , displayReview model.stars model.inputBody model.inputAuthor
     , reviewForm address model
