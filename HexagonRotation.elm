@@ -19,6 +19,7 @@ main : Signal Element
 main =
   mouse |> Signal.map action
 
+
 action : ( Int, Int ) -> Element
 action ( x, y ) =
   collage
@@ -26,7 +27,8 @@ action ( x, y ) =
     300
     [ polygons (toFloat (angle ( x, y ))) ]
 
-polygons: Float -> Form 
+
+polygons : Float -> Form
 polygons angle =
   group
     [ hexagon red red
