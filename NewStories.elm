@@ -2,6 +2,7 @@ module Main (..) where
 
 import Html exposing (..)
 import Html.Events exposing (..)
+import Html.Attributes exposing (..)
 
 
 view : Signal.Address Action -> Game -> Html
@@ -54,7 +55,12 @@ choiceElem : Signal.Address Action -> Choice -> Html
 choiceElem address choice =
   li
     []
-    [ a [ onClick address (Goto choice.id) ] [ text choice.text ] ]
+    [ a
+        [ href "#"
+        , onClick address (Goto choice.id)
+        ]
+        [ text choice.text ]
+    ]
 
 
 
@@ -148,9 +154,11 @@ update action game =
 
     Goto id ->
       let
-        filtered = List.filter (\n -> n.id == id) game.story
+        filtered =
+          List.filter (\n -> n.id == id) game.story
 
-        selected = List.head filtered
+        selected =
+          List.head filtered
       in
         case selected of
           Nothing ->
